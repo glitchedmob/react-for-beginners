@@ -17,11 +17,25 @@ export class App extends React.Component {
 
 	componentDidMount() {
 		const { params } = this.props.match;
+
+		const localStorageRef = localStorage.getItem(params.storeId);
+
+		if(localStorage) {
+			this.setState({ order: JSON.parse(localStorageRef) });
+		}
+
 		this.ref = base.syncState(`${params.storeId}/fishes`, {
 			context: this,
 			state: 'fishes'
-		})
+		});
 	}
+
+	componentDidUpdate() {
+		const { params } = this.props.match;
+		
+		localStorage.setItem(params.storeId, JSON.stringify(this.state.order));
+	}
+	
 
 	componentWillUnmount() {
 		base.removeBinding(this.ref);
@@ -36,15 +50,15 @@ export class App extends React.Component {
 	}
 
 	loadSampleFishes = () => {
-		this.setState({ fishes: sampleFishes })
+		this.setState({ fishes: sampleFishes });
 	}
 
 	addToOrder = key => {
 		const order = { ...this.state.order }
 
-		order[key] = order[key] + 1 || 1
+		order[key] = order[key] + 1 || 1;
 
-		this.setState({ order })
+		this.setState({ order });
 	}
 
 	render() {
