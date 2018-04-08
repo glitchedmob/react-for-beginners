@@ -88,7 +88,7 @@ export class App extends React.Component {
 		return (
 			<div className="catch-of-the-day">
 				<div className="menu">
-					<Header tagline="Wes is cool"/>
+					<Header tagline="Vue is better"/>
 					<ul className="fishes">
 						{ Object.keys(this.state.fishes).map(key => (
 							<Fish
@@ -110,7 +110,8 @@ export class App extends React.Component {
 					updateFish={ this.updateFish }
 					deleteFish={ this.deleteFish }
 					loadSampleFishes= { this.loadSampleFishes }
-					fishes={ this.state.fishes }/>
+					fishes={ this.state.fishes }
+					storeId={ this.props.match.params.storeId }/>
 			</div>
 		)
 	}
